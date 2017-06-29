@@ -18,19 +18,20 @@ namespace ITI.InterfaceUser
         Button _pawn;
         Button _capturePawn;
         Button _victoryCondition;
+        string _road = @"./HnefataflRules/HnefataflRules.pdf";
 
         public HnefataflRules(InterfaceOptions interfaceOptions)
         {
             InitializeComponent();
             _interfaceOptions = interfaceOptions;
-            
+
             this.Text = _interfaceOptions.Title;
             this.Refresh();
 
             setRulesBoard();
             m_RichTextBoxRules.Text = ITI.InterfaceUser.Properties.Resources.Initialisation_d_un_plateau;
-        }
 
+        }
         private void setRulesBoard()
         {
 
@@ -95,7 +96,9 @@ namespace ITI.InterfaceUser
             m_ButtonReturn.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
-        
-        
+        private void axAcroPDF1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace ITI.InterfaceUser
         int _DefCount = 0;
         //
         bool _createBoard;
+        string _taflname;
         // Outil implémenter
         PictureBox _playerTurn;
 
@@ -57,20 +58,21 @@ namespace ITI.InterfaceUser
         public m_GameBoard(InterfaceOptions interfaceOptions, bool iAATK, bool IADef, bool createBoard, string taflname)
         {
             InitializeComponent();
+            _taflname = taflname;
             _createBoard = createBoard;
-            if (_createBoard == true)
+            _interfaceOptions = interfaceOptions;
+
+            if (_createBoard == false)
             {
-                Game partie = new Game();
+                Game partie = new Game(_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight);
                 _partie = partie;
                 _tafl = partie.Tafl;
             }else
             {
-                Game partie = new Game();
+                Game partie = new Game(_taflname);
                 _partie = partie;
                 _tafl = partie.Tafl;
             }
-
-            _interfaceOptions = interfaceOptions;
             _interfaceOptions.setPictureBox(_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight);
 
             _mvtPossible = new int[_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight];
@@ -86,13 +88,14 @@ namespace ITI.InterfaceUser
             // Appel et création de l'IA
             if (_IAAtk == true)
             {
-                Freyja = new Freyja_Core(_partie, _IAAtk);
+                Freyja = new Freyja_Core(_partie, true);
                 IATurn();
             }
             if(_IADef == true)
             {
-                Freyja = new Freyja_Core(_partie, _IADef);
+                Freyja = new Freyja_Core(_partie, false);
             }
+            
 
         }
 
@@ -274,7 +277,6 @@ namespace ITI.InterfaceUser
                 || (_tafl.HasKing == false))
                 {
                     showVictory();
-
                 }
             }
             pictureBox1.Refresh();
@@ -322,15 +324,15 @@ namespace ITI.InterfaceUser
                 {
                     if(MessageBox.Show("Recommencez", "Défaite", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        if (_createBoard == true)
+                        if (_createBoard == false)
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
                         else
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_taflname);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
@@ -345,21 +347,21 @@ namespace ITI.InterfaceUser
                         pictureBox1.Refresh();
                     }else
                     {
-                        m_buttonRetourMenu.DialogResult = DialogResult.Cancel;
+                        this.DialogResult = DialogResult.Cancel;
                     }
                 }else
                 {
                     if (MessageBox.Show("You lost! Try Again?", "Loose", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        if (_createBoard == true)
+                        if (_createBoard == false)
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
                         else
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_taflname);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
@@ -376,7 +378,7 @@ namespace ITI.InterfaceUser
                     }
                     else
                     {
-                        m_buttonRetourMenu.DialogResult = DialogResult.Cancel;
+                        this.DialogResult = DialogResult.Cancel;
                     }
                 }
             }else
@@ -398,15 +400,15 @@ namespace ITI.InterfaceUser
                 {
                     if (MessageBox.Show("victoire ! Recommencez ?", "victoire", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        if (_createBoard == true)
+                        if (_createBoard == false)
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
                         else
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_taflname);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
@@ -423,22 +425,22 @@ namespace ITI.InterfaceUser
                     }
                     else
                     {
-                        m_buttonRetourMenu.DialogResult = DialogResult.Cancel;
+                        this.DialogResult = DialogResult.Cancel;
                     }
                 }
                 else
                 {
                     if (MessageBox.Show("Victory! Try again?", "Victory", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        if (_createBoard == true)
+                        if (_createBoard == false)
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_interfaceOptions.BoardWidth, _interfaceOptions.BoardHeight);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
                         else
                         {
-                            Game partie = new Game();
+                            Game partie = new Game(_taflname);
                             _partie = partie;
                             _tafl = partie.Tafl;
                         }
@@ -455,7 +457,7 @@ namespace ITI.InterfaceUser
                     }
                     else
                     {
-                        m_buttonRetourMenu.DialogResult = DialogResult.Cancel;
+                        this.DialogResult = DialogResult.Cancel;
                     }
                 }
             }
@@ -464,6 +466,7 @@ namespace ITI.InterfaceUser
         private void showHelpPlayer(int pawnLocationX, int pawnLocationY)
         {
             int x = 0, y = 0;
+
             _studiedPossibleMove = new List<StudiedPawn>();
             _studiedPawn = new StudiedPawn();
 

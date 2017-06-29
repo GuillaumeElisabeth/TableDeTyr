@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HnefataflRules));
             this.m_RichTextBoxRules = new System.Windows.Forms.RichTextBox();
             this.m_ButtonReturn = new System.Windows.Forms.Button();
+            //this.axAcroPDF1 = new AxAcroPDFLib.AxAcroPDF();
+            //((System.ComponentModel.ISupportInitialize)(this.axAcroPDF1)).BeginInit();
             this.SuspendLayout();
             // 
             // m_RichTextBoxRules
@@ -50,16 +53,28 @@
             this.m_ButtonReturn.TabIndex = 5;
             this.m_ButtonReturn.UseVisualStyleBackColor = false;
             // 
+            // axAcroPDF1
+            // 
+            this.axAcroPDF1.Enabled = true;
+            this.axAcroPDF1.Location = new System.Drawing.Point(12, 12);
+            this.axAcroPDF1.Name = "axAcroPDF1";
+            this.axAcroPDF1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axAcroPDF1.OcxState")));
+            this.axAcroPDF1.Size = new System.Drawing.Size(982, 568);
+            this.axAcroPDF1.TabIndex = 6;
+            this.axAcroPDF1.Enter += new System.EventHandler(this.axAcroPDF1_Enter);
+            // 
             // HnefataflRules
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 673);
+            this.Controls.Add(this.axAcroPDF1);
             this.Controls.Add(this.m_ButtonReturn);
             this.Controls.Add(this.m_RichTextBoxRules);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "HnefataflRules";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            ((System.ComponentModel.ISupportInitialize)(this.axAcroPDF1)).EndInit();
             this.ResumeLayout(false);
 
         }

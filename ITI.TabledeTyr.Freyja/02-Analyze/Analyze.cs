@@ -32,7 +32,7 @@ namespace ITI.TabledeTyr.Freyja
         int _atkCount;
         int _defCount;
         int _libertyGroupStudied;
-
+        int _scoreKingEscape;
         int _nbOfPawnInPatieUpLeftOfBoard;
         bool _bestMovedefUpRight;
         int _nbOfPawnInPatieUpRightOfBoard;
@@ -71,6 +71,7 @@ namespace ITI.TabledeTyr.Freyja
 
         private void IASimuationAnalyse()
         {
+
             PawnDestinationFree(_father.OriginMove.destinationX, _father.OriginMove.destinationY);
             PawnPositionFree(_father.OriginMove.sourceX, _father.OriginMove.sourceY);
             NumberOfPawnAtTheBeginningOfTheTurn();
@@ -198,7 +199,7 @@ namespace ITI.TabledeTyr.Freyja
             return false;
         }
 
-
+        
         //Fonctions de score
 
         private void setScoreCapturePawn()
@@ -597,33 +598,89 @@ namespace ITI.TabledeTyr.Freyja
         /// <returns></returns>
         private bool PossiblePawnMove(int StudiedPawnPositionX, int StudiedPawnPositionY, int StudiedPawndestinationX, int StudiedPawndestinationY)
         {
-            int incrementJ = 0, incrementI = 0;
+            _scoreKingEscape = 0;
 
-            if (StudiedPawnPositionX > StudiedPawndestinationX)
+            if ((StudiedPawnPositionX <= StudiedPawndestinationX) && (StudiedPawnPositionY <= StudiedPawndestinationY))
             {
-                incrementI = -1;
-            }
-            if (StudiedPawnPositionX < StudiedPawndestinationX)
-            {
-                incrementI = 1;
-            }
-            if (StudiedPawnPositionY > StudiedPawndestinationY)
-            {
-                incrementJ = -1;
-            }
-            if (StudiedPawnPositionY < StudiedPawndestinationY)
-            {
-                incrementJ = 1;
-            }
-
-            for (int j = StudiedPawnPositionY; j != StudiedPawndestinationY; j += incrementJ)
-            {
-                for (int i = StudiedPawnPositionX; i != StudiedPawndestinationX; i += incrementI)
+                for (int j = StudiedPawnPositionY; j <= StudiedPawndestinationY; j++)
                 {
-                    
-                    if (_tafl[i, j] != Pawn.None)
+                    for (int i = StudiedPawnPositionX; i <= StudiedPawndestinationX; i++)
                     {
-                        return true;
+                        if ((_tafl[StudiedPawnPositionX, StudiedPawnPositionY] == Pawn.King) &&
+                            ((i == 0 && j == 0)
+                            || (i == _tafl.Width - 1 && j == _tafl.Height)
+                            || (i == _tafl.Width - 1 && j == 0)
+                            || (i == 0 && j == _tafl.Height - 1)))
+                        {
+                            _scoreKingEscape = 100;
+                        }
+                        else if (_tafl[i, j] != Pawn.None)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if ((StudiedPawnPositionX >= StudiedPawndestinationX) && (StudiedPawnPositionY <= StudiedPawndestinationY))
+            {
+                for (int j = StudiedPawnPositionY; j <= StudiedPawndestinationY; j++)
+                {
+                    for (int i = StudiedPawnPositionX; i >= StudiedPawndestinationX; i--)
+                    {
+                        if ((_tafl[StudiedPawnPositionX, StudiedPawnPositionY] == Pawn.King) &&
+                            ((i == 0 && j == 0)
+                            || (i == _tafl.Width - 1 && j == _tafl.Height)
+                            || (i == _tafl.Width - 1 && j == 0)
+                            || (i == 0 && j == _tafl.Height - 1)))
+                        {
+                            _scoreKingEscape = 100;
+                        }
+                        else if (_tafl[i, j] != Pawn.None)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if ((StudiedPawnPositionX <= StudiedPawndestinationX) && (StudiedPawnPositionY >= StudiedPawndestinationY))
+            {
+                for (int j = StudiedPawnPositionY; j >= StudiedPawndestinationY; j--)
+                {
+                    for (int i = StudiedPawnPositionX; i <= StudiedPawndestinationX; i++)
+                    {
+                        if ((_tafl[StudiedPawnPositionX, StudiedPawnPositionY] == Pawn.King) &&
+                            ((i == 0 && j == 0)
+                            || (i == _tafl.Width - 1 && j == _tafl.Height)
+                            || (i == _tafl.Width - 1 && j == 0)
+                            || (i == 0 && j == _tafl.Height - 1)))
+                        {
+                            _scoreKingEscape = 100;
+                        }
+                        else if (_tafl[i, j] != Pawn.None)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if ((StudiedPawnPositionX >= StudiedPawndestinationX) && (StudiedPawnPositionY >= StudiedPawndestinationY))
+            {
+                for (int j = StudiedPawnPositionY; j >= StudiedPawndestinationY; j--)
+                {
+                    for (int i = StudiedPawnPositionX; i >= StudiedPawndestinationX; i--)
+                    {
+                        if ((_tafl[StudiedPawnPositionX, StudiedPawnPositionY] == Pawn.King) &&
+                            ((i == 0 && j == 0)
+                            || (i == _tafl.Width - 1 && j == _tafl.Height)
+                            || (i == _tafl.Width - 1 && j == 0)
+                            || (i == 0 && j == _tafl.Height - 1)))
+                        {
+                            _scoreKingEscape = 100;
+                        }
+                        else if (_tafl[i, j] != Pawn.None)
+                        {
+                            return true;
+                        }
                     }
                 }
             }

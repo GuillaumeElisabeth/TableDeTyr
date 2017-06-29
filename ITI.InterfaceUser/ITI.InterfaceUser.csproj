@@ -64,6 +64,7 @@
     <Compile Include="GameBoard.Designer.cs">
       <DependentUpon>GameBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="IA.cs" />
     <Compile Include="InterfaceOptions.cs">
       <SubType>Form</SubType>
     </Compile>

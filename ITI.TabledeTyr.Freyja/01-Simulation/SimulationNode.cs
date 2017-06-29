@@ -213,7 +213,7 @@ namespace ITI.TabledeTyr.Freyja
         {
             return GetEnumerator();
         }
-        /*
+        
         internal void RemovebyTeam(bool isTeamAtk)
         {
 
@@ -230,6 +230,6 @@ namespace ITI.TabledeTyr.Freyja
                 }
             }
         }
-        */
+        
     }
 }

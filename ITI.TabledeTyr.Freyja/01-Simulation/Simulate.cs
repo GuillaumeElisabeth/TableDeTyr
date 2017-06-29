@@ -133,6 +133,7 @@ namespace ITI.TabledeTyr.Freyja
             //create a Game for this pawn move, at this tafl state and turn state.
             _simulatedGame = new Game(father.TaflStored, father.IsAtkPlay);
             //move the pawn (finally !)
+
             _simulatedGame.MovePawn(x, y, x2, y2);
             _simulatedGame.UpdateTurn();
             //store the move
